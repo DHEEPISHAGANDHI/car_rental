@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>n8n Chatbot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    #chatbox {
+      width: 350px;
+      height: 500px;
+      border: 2px solid #ccc;
+      padding: 10px;
+      overflow-y: auto;
+      background: #f9f9f9;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .user, .bot {
+      padding: 8px 12px;
+      margin: 6px;
+      border-radius: 8px;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+    .user {
+      background-color: #d1e7dd;
+      align-self: flex-end;
+      text-align: right;
+    }
+    .bot {
+      background-color: #f8d7da;
+      align-self: flex-start;
+      text-align: left;
+    }
+    #inputArea {
+      display: flex;
+      margin-top: 10px;
+    }
+    #userInput {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #sendBtn {
+      padding: 10px 15px;
+      margin-left: 5px;
+      background: #0d6efd;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div id="chatbox">
+  <div id="messages" style="display: flex; flex-direction: column;"></div>
+  <div id="inputArea">
+    <input type="text" id="userInput" placeholder="Type a message..." />
+    <button id="sendBtn">Send</button>
+  </div>
+</div>
+
+<script>
+  const sendBtn = document.getElementById("sendBtn");
+  const userInput = document.getElementById("userInput");
+  const messages = document.getElementById("messages");
+
+const webhookURL = "https://intent-bass-eagerly.ngrok-free.app/webhook/2e6c2d94-60f5-45cc-8ed8-8894cbd01cdd/chat";
+
+  sendBtn.addEventListener("click", async () => {
+    const text = userInput.value.trim();
+    if (!text) return;
+
+    // Display user message
+    const userMsg = document.createElement("div");
+    userMsg.className = "user";
+    userMsg.textContent = text;
+    messages.appendChild(userMsg);
+    userInput.value = "";
+
+    // Send to n8n webhook
+    try {
+      const response = await fetch(webhookURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: text })
+      });
+
+      const data = await response.json();
+      const botReply = data.reply || "No response";
+
+      // Display bot reply
+      const botMsg = document.createElement("div");
+      botMsg.className = "bot";
+      botMsg.textContent = botReply;
+      messages.appendChild(botMsg);
+      messages.scrollTop = messages.scrollHeight;
+    } catch (err) {
+      console.error("Error:", err);
+      const errMsg = document.createElement("div");
+      errMsg.className = "bot";
+      errMsg.textContent = "Sorry, something went wrong.";
+      messages.appendChild(errMsg);
+    }
+  });
+
+  // Allow Enter key to send message
+  userInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") sendBtn.click();
+  });
+</script>
+
+</body>
+</html>
