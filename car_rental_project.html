@@ -253,6 +253,99 @@
             background: #FFC107;
         }
 
+        /* Live Tracking Notification */
+        .tracking-notification {
+            margin-right: 1rem;
+            animation: slideInFromRight 0.5s ease-out;
+        }
+
+        .track-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.25rem;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: pulse-notification 2s infinite;
+        }
+
+        .track-btn:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #FF5252, #FF7043);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .track-icon {
+            position: relative;
+            width: 24px;
+            height: 24px;
+        }
+
+        .track-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .live-dot {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+
+        .track-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.2;
+        }
+
+        .track-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .track-eta {
+            font-size: 0.75rem;
+            opacity: 0.9;
+        }
+
+        @keyframes pulse-notification {
+            0%, 100% {
+                box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            }
+            50% {
+                box-shadow: 0 6px 25px rgba(255, 107, 107, 0.6);
+            }
+        }
+
+        @keyframes slideInFromRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
         /* Header scroll effect */
         .main-header.scrolled {
             background: rgba(0, 0, 0, 0.98);
@@ -1087,6 +1180,23 @@
                 </ul>
             </nav>
             
+            <!-- Live Tracking Notification (appears when user has active booking) -->
+            <div class="tracking-notification" id="trackingNotification" style="display: none;">
+                <button class="track-btn" onclick="openTrackingFromHeader()">
+                    <div class="track-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <div class="live-dot"></div>
+                    </div>
+                    <div class="track-text">
+                        <span class="track-label">Track Live</span>
+                        <span class="track-eta">ETA: 8 mins</span>
+                    </div>
+                </button>
+            </div>
+            
             <div class="auth-buttons">
                 <button class="auth-btn login-btn" onclick="openLoginModal()">
                     <svg class="auth-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1766,6 +1876,15 @@
             <div class="modal-body">
                 <form id="loginForm">
                     <div class="form-group">
+                        <label class="form-label">Select Your Role</label>
+                        <select class="form-input" id="loginRole" required>
+                            <option value="">Choose your role...</option>
+                            <option value="customer">🚗 Customer (Book Cars)</option>
+                            <option value="rider">🚕 Rider (Handle Deliveries)</option>
+                            <option value="admin">🧑‍💼 Admin (Manage Platform)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label class="form-label">Email Address</label>
                         <input type="email" class="form-input" placeholder="Enter your email" required>
                     </div>
@@ -1792,6 +1911,15 @@
             </div>
             <div class="modal-body">
                 <form id="signupForm">
+                    <div class="form-group">
+                        <label class="form-label">Select Your Role</label>
+                        <select class="form-input" id="signupRole" required>
+                            <option value="">Choose your role...</option>
+                            <option value="customer">🚗 Customer (Book Cars)</option>
+                            <option value="rider">🚕 Rider (Handle Deliveries)</option>
+                            <option value="admin">🧑‍💼 Admin (Manage Platform)</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label class="form-label">Full Name</label>
                         <input type="text" class="form-input" placeholder="Enter your full name" required>
@@ -1961,6 +2089,9 @@
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            const role = document.getElementById('loginRole').value;
+            const email = this.querySelector('input[type="email"]').value;
+            
             // Simulate login process
             const btn = this.querySelector('.modal-btn');
             const originalText = btn.textContent;
@@ -1968,8 +2099,46 @@
             btn.disabled = true;
             
             setTimeout(() => {
-                alert('Login successful! Welcome back to Elite Rentals.');
+                // Store user session
+                localStorage.setItem('userRole', role);
+                localStorage.setItem('userEmail', email);
+                localStorage.setItem('isLoggedIn', 'true');
+                
+                // Role-based redirection
+                let redirectMessage = '';
+                let redirectUrl = '';
+                
+                switch(role) {
+                    case 'customer':
+                        redirectMessage = 'Welcome back! Redirecting to car booking platform...';
+                        redirectUrl = 'car_rental_project.html';
+                        break;
+                    case 'rider':
+                        redirectMessage = 'Welcome back, Rider! Redirecting to delivery dashboard...';
+                        redirectUrl = 'rider_dashboard.html';
+                        break;
+                    case 'admin':
+                        redirectMessage = 'Welcome back, Admin! Redirecting to management panel...';
+                        redirectUrl = 'admin_dashboard.html';
+                        break;
+                    default:
+                        redirectMessage = 'Please select a valid role.';
+                        btn.textContent = originalText;
+                        btn.disabled = false;
+                        return;
+                }
+                
+                alert(redirectMessage);
                 closeModal('loginModal');
+                
+                // Redirect after modal closes
+                if (redirectUrl && redirectUrl !== 'car_rental_project.html') {
+                    window.location.href = redirectUrl;
+                } else {
+                    // Stay on current page for customers
+                    location.reload();
+                }
+                
                 btn.textContent = originalText;
                 btn.disabled = false;
                 this.reset();
@@ -1985,6 +2154,10 @@
                 return;
             }
             
+            const role = document.getElementById('signupRole').value;
+            const email = this.querySelector('input[type="email"]').value;
+            const name = this.querySelector('input[type="text"]').value;
+            
             // Simulate signup process
             const btn = this.querySelector('.modal-btn');
             const originalText = btn.textContent;
@@ -1992,8 +2165,47 @@
             btn.disabled = true;
             
             setTimeout(() => {
-                alert('Account created successfully! Welcome to Elite Rentals.');
+                // Store user session
+                localStorage.setItem('userRole', role);
+                localStorage.setItem('userEmail', email);
+                localStorage.setItem('userName', name);
+                localStorage.setItem('isLoggedIn', 'true');
+                
+                // Role-based redirection
+                let redirectMessage = '';
+                let redirectUrl = '';
+                
+                switch(role) {
+                    case 'customer':
+                        redirectMessage = 'Account created successfully! Welcome to Elite Rentals car booking platform.';
+                        redirectUrl = 'car_rental_project.html';
+                        break;
+                    case 'rider':
+                        redirectMessage = 'Rider account created! Welcome to Elite Rentals delivery team.';
+                        redirectUrl = 'rider_dashboard.html';
+                        break;
+                    case 'admin':
+                        redirectMessage = 'Admin account created! Welcome to Elite Rentals management panel.';
+                        redirectUrl = 'admin_dashboard.html';
+                        break;
+                    default:
+                        redirectMessage = 'Please select a valid role.';
+                        btn.textContent = originalText;
+                        btn.disabled = false;
+                        return;
+                }
+                
+                alert(redirectMessage);
                 closeModal('signupModal');
+                
+                // Redirect after modal closes
+                if (redirectUrl && redirectUrl !== 'car_rental_project.html') {
+                    window.location.href = redirectUrl;
+                } else {
+                    // Stay on current page for customers
+                    location.reload();
+                }
+                
                 btn.textContent = originalText;
                 btn.disabled = false;
                 this.reset();
@@ -2074,7 +2286,50 @@
             
             // Add scroll listener for animations
             window.addEventListener('scroll', handleScrollAnimations);
+            
+            // Check for active bookings and show tracking notification
+            setTimeout(showTrackingNotification, 2000);
         });
+
+        // Live Tracking Functions
+        function openTrackingFromHeader() {
+            // Simulate tracking data
+            const trackingInfo = {
+                vehicle: 'Mercedes-Benz S-Class',
+                riderName: 'John Doe',
+                pickupLocation: 'Downtown Elite Hub',
+                estimatedArrival: 8,
+                riderPhone: '+91 98765 43210'
+            };
+            
+            localStorage.setItem('currentTracking', JSON.stringify(trackingInfo));
+            window.open('live_tracking.html', '_blank');
+        }
+
+        function showTrackingNotification() {
+            // Simulate checking if user has active booking
+            const hasActiveBooking = localStorage.getItem('hasActiveBooking') === 'true' || 
+                                   localStorage.getItem('bookingData') !== null;
+            
+            if (hasActiveBooking) {
+                document.getElementById('trackingNotification').style.display = 'block';
+                
+                // Update ETA periodically
+                let eta = 8;
+                const etaInterval = setInterval(() => {
+                    eta--;
+                    if (eta <= 0) {
+                        document.querySelector('.track-eta').textContent = 'Arrived!';
+                        clearInterval(etaInterval);
+                        setTimeout(() => {
+                            document.getElementById('trackingNotification').style.display = 'none';
+                        }, 5000);
+                    } else {
+                        document.querySelector('.track-eta').textContent = `ETA: ${eta} mins`;
+                    }
+                }, 60000); // Update every minute
+            }
+        }
 
         // Book car function for redirecting to booking page
         function bookCar(carName) {

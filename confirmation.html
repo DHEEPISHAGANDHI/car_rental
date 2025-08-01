@@ -300,6 +300,52 @@
             color: #FFD700;
         }
 
+        /* Live Tracking Button Styles */
+        .live-tracking-btn {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53) !important;
+            border: 2px solid #FF6B6B !important;
+            animation: pulse-glow 2s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .live-tracking-btn:hover {
+            background: linear-gradient(135deg, #FF5252, #FF7043) !important;
+            transform: translateY(-3px) !important;
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4) !important;
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 5px 20px rgba(255, 107, 107, 0.3);
+            }
+            50% {
+                box-shadow: 0 8px 30px rgba(255, 107, 107, 0.6);
+            }
+        }
+
+        /* Animated red dot for live indicator */
+        .live-indicator::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+            margin-right: 4px;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
         .next-steps {
             background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
             border-radius: 15px;
@@ -686,6 +732,15 @@
 
             <!-- Action Buttons -->
             <div class="actions">
+                <!-- Primary Action: Live Tracking -->
+                <button type="button" class="action-button live-tracking-btn" onclick="openLiveTracking()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <span class="live-indicator">🔴 Track Your Rider Live</span>
+                </button>
+                
                 <button type="button" class="action-button" onclick="downloadReceipt()">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -1012,6 +1067,34 @@ Visit: eliterentals.com
             a.click();
             document.body.removeChild(a);
             window.URL.revokeObjectURL(url);
+        }
+
+        // Live Tracking Function
+        function openLiveTracking() {
+            // Store current booking info for tracking page
+            const bookingInfo = {
+                vehicle: document.querySelector('.confirmation-detail:nth-child(2) .detail-value')?.textContent || 'Mercedes-Benz S-Class',
+                pickupLocation: 'Downtown Elite Hub',
+                pickupTime: new Date(Date.now() + 8 * 60000).toLocaleTimeString(), // 8 minutes from now
+                riderName: 'John Doe',
+                riderPhone: '+91 98765 43210',
+                riderRating: '4.9',
+                estimatedArrival: 8 // minutes
+            };
+            
+            localStorage.setItem('currentTracking', JSON.stringify(bookingInfo));
+            
+            // Add some excitement with a confirmation
+            const confirmTrack = confirm(
+                '🚀 Your rider John Doe is on the way with your ' + bookingInfo.vehicle + '!\n\n' +
+                '📍 Track live location and estimated arrival time?\n' +
+                '⏰ Estimated arrival: 8 minutes\n\n' +
+                'Click OK to open live tracking map!'
+            );
+            
+            if (confirmTrack) {
+                window.open('live_tracking.html', '_blank');
+            }
         }
 
         // Initialize page
