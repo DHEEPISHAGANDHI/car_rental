@@ -1231,7 +1231,6 @@
         <video class="hero-video" autoplay muted loop>
             <source src="car2.mp4" type="video/mp4">
         </video>
-        
         <div class="hero-content">
             <h1>
                 <span class="brand">ELITE</span><br>
@@ -1242,7 +1241,6 @@
                 Explore Fleet
             </button>
         </div>
-        
         <div class="scroll-indicator">
             <svg class="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="6,9 12,15 18,9"></polyline>
@@ -2128,7 +2126,7 @@
                         return;
                 }
                 
-                alert(redirectMessage);
+                console.log(redirectMessage);
                 closeModal('loginModal');
                 
                 // Redirect after modal closes
@@ -2150,7 +2148,7 @@
             
             const passwords = this.querySelectorAll('input[type="password"]');
             if (passwords[0].value !== passwords[1].value) {
-                alert('Passwords do not match!');
+                console.log('Passwords do not match!');
                 return;
             }
             
@@ -2195,7 +2193,7 @@
                         return;
                 }
                 
-                alert(redirectMessage);
+                console.log(redirectMessage);
                 closeModal('signupModal');
                 
                 // Redirect after modal closes
@@ -2222,7 +2220,7 @@
             btn.disabled = true;
             
             setTimeout(() => {
-                alert('Message sent successfully! We\'ll get back to you within 24 hours.');
+                console.log('Message sent successfully! We\'ll get back to you within 24 hours.');
                 closeModal('contactModal');
                 btn.textContent = originalText;
                 btn.disabled = false;

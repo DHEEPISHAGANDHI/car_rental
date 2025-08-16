@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Car - Elite Rentals</title>
+    <meta name="description" content="Complete your luxury car rental booking with Elite Rentals">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #111;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #FFD700;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FFC107;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        .header {
+            padding: 2rem 0;
+            background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
+            border-bottom: 1px solid #333;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #FFD700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .back-button {
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid #333;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-button:hover {
+            border-color: #FFD700;
+            color: #FFD700;
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .booking-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 3rem;
+            padding: 3rem 0;
+            min-height: calc(100vh - 200px);
+        }
+
+        .booking-form {
+            background: #0a0a0a;
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid #333;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #FFD700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .section-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: #FFD700;
+        }
+
+        /* Car Confirmation */
+        .car-confirmation {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #333;
+        }
+
+        .car-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .car-info {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex: 1;
+        }
+
+        .car-image {
+            width: 120px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid #FFD700;
+        }
+
+        .car-details h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .car-specs {
+            display: flex;
+            gap: 1rem;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .change-car-btn {
+            background: transparent;
+            color: #FFD700;
+            border: 1px solid #FFD700;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .change-car-btn:hover {
+            background: #FFD700;
+            color: #000000;
+            transform: translateY(-2px);
+        }
+
+        /* Form Inputs */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #FFD700;
+            box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+        }
+
+        .form-input::placeholder {
+            color: #666;
+        }
+
+        /* Date Picker */
+        .date-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .duration-info {
+            background: #1a1a1a;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #333;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .duration-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #FFD700;
+        }
+
+        .estimated-cost {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 0.5rem;
+        }
+
+        /* Add-ons */
+        .addons-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .addon-item {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .addon-item:hover {
+            border-color: #FFD700;
+            transform: translateY(-2px);
+        }
+
+        .addon-item.selected {
+            border-color: #FFD700;
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .addon-checkbox {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 20px;
+            height: 20px;
+            accent-color: #FFD700;
+        }
+
+        .addon-icon {
+            width: 2rem;
+            height: 2rem;
+            color: #FFD700;
+            margin-bottom: 1rem;
+        }
+
+        .addon-name {
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .addon-price {
+            color: #FFD700;
+            font-weight: 700;
+        }
+
+        /* Promo Code */
+        .promo-section {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1px solid #333;
+        }
+
+        .promo-input-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .promo-input {
+            flex: 1;
+        }
+
+        .apply-promo-btn {
+            background: linear-gradient(135deg, #FFD700, #FFC107);
+            color: #000000;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .apply-promo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .promo-success {
+            margin-top: 1rem;
+            color: #4CAF50;
+            font-weight: 600;
+            display: none;
+        }
+
+        /* Payment Options */
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .payment-option {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-option:hover {
+            border-color: #FFD700;
+            transform: translateY(-2px);
+        }
+
+        .payment-option.selected {
+            border-color: #FFD700;
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .payment-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            color: #FFD700;
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-name {
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        /* Booking Summary Sidebar */
+        .booking-summary {
+            background: #0a0a0a;
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid #333;
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .summary-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #FFD700;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            color: #888;
+            font-weight: 500;
+        }
+
+        .summary-value {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .summary-total {
+            font-size: 1.5rem;
+            color: #FFD700;
+            font-weight: 800;
+        }
+
+        .confirm-booking-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #FFD700, #FFC107);
+            color: #000000;
+            border: none;
+            padding: 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .confirm-booking-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.4);
+        }
+
+        .confirm-booking-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .confirm-booking-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .confirm-booking-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loading-content {
+            text-align: center;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid #333;
+            border-top: 4px solid #FFD700;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 2rem;
+        }
+
+        .loading-text {
+            font-size: 1.2rem;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        .footer {
+            background: #0a0a0a;
+            padding: 4rem 0 2rem;
+            border-top: 1px solid #333;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand .highlight {
+            color: #FFD700;
+        }
+
+        .footer-tagline {
+            color: #888;
+            margin-bottom: 3rem;
+        }
+
+        .footer-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-feature {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-icon {
+            width: 3rem;
+            height: 3rem;
+            color: #FFD700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-feature p {
+            color: #cccccc;
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            color: #666;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .booking-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .booking-summary {
+                position: static;
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .booking-form,
+            .booking-summary {
+                padding: 1.5rem;
+            }
+
+            .car-info {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .car-image {
+                width: 100px;
+                height: 70px;
+            }
+
+            .form-row,
+            .date-group,
+            .addons-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .promo-input-group {
+                flex-direction: column;
+            }
+
+            .footer-features {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* Selection */
+        ::selection {
+            background-color: #FFD700;
+            color: #000000;
+        }
+
+        /* File upload styling */
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-upload input[type=file] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-upload-label {
+            display: block;
+            padding: 1rem;
+            background: #1a1a1a;
+            border: 1px dashed #333;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #888;
+        }
+
+        .file-upload-label:hover {
+            border-color: #FFD700;
+            color: #FFD700;
+        }
+
+        .file-upload.has-file .file-upload-label {
+            border-color: #FFD700;
+            color: #FFD700;
+            background: rgba(255, 215, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="brand">ELITE RENTALS</div>
+                <a href="car_rental_project.html" class="back-button">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15,18 9,12 15,6"></polyline>
+                    </svg>
+                    Back to Fleet
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="booking-container">
+            <!-- Booking Form -->
+            <div class="booking-form">
+                <!-- Car Confirmation -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 17h14l-7-7z"></path>
+                        </svg>
+                        Selected Vehicle
+                    </h2>
+                    <div class="car-confirmation">
+                        <div class="car-header">
+                            <div class="car-info">
+                                <img src="https://images.pexels.com/photos/2920064/pexels-photo-2920064.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Range Rover Velar" class="car-image">
+                                <div class="car-details">
+                                    <h3 id="selected-car-name">Range Rover Velar</h3>
+                                    <div class="car-specs">
+                                        <div class="spec-item">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                                <circle cx="9" cy="7" r="4"></circle>
+                                            </svg>
+                                            <span id="car-seats">5 Seats</span>
+                                        </div>
+                                        <div class="spec-item">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                                <circle cx="12" cy="5" r="2"></circle>
+                                            </svg>
+                                            <span id="car-fuel">Petrol</span>
+                                        </div>
+                                        <div class="spec-item">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <polyline points="12,6 12,12 16,14"></polyline>
+                                            </svg>
+                                            <span id="car-transmission">Automatic</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="car_rental_project.html#cars-section" class="change-car-btn">Change Car</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Date & Time Picker -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        Rental Period
+                    </h2>
+                    <div class="date-group">
+                        <div class="form-group">
+                            <label class="form-label">Pickup Date & Time</label>
+                            <input type="datetime-local" class="form-input" id="pickup-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Return Date & Time</label>
+                            <input type="datetime-local" class="form-input" id="return-date" required>
+                        </div>
+                    </div>
+                    <div class="duration-info">
+                        <div class="duration-text" id="duration-display">Select dates to see duration</div>
+                        <div class="estimated-cost" id="estimated-cost">Estimated cost will be calculated</div>
+                    </div>
+                </div>
+
+                <!-- Pickup & Drop-off Locations -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        Locations
+                    </h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Pickup Location</label>
+                            <select class="form-input" id="pickup-location" required>
+                                <option value="">Select pickup location</option>
+                                <option value="downtown">Downtown Elite Center</option>
+                                <option value="airport">International Airport</option>
+                                <option value="mall">Premium Mall Location</option>
+                                <option value="hotel">Luxury Hotel District</option>
+                                <option value="station">Central Station</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Return Location</label>
+                            <select class="form-input" id="return-location" required>
+                                <option value="">Select return location</option>
+                                <option value="same">Same as pickup</option>
+                                <option value="downtown">Downtown Elite Center</option>
+                                <option value="airport">International Airport</option>
+                                <option value="mall">Premium Mall Location</option>
+                                <option value="hotel">Luxury Hotel District</option>
+                                <option value="station">Central Station</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Details Form -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        Personal Details
+                    </h2>
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" id="full-name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-input" id="email" placeholder="your.email@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Mobile Number</label>
+                            <input type="tel" class="form-input" id="mobile" placeholder="+1 (555) 123-4567" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Driving License</label>
+                        <div class="file-upload">
+                            <input type="file" id="license-upload" accept=".jpg,.jpeg,.png,.pdf">
+                            <label for="license-upload" class="file-upload-label">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom: 0.5rem;">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14,2 14,8 20,8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    <polyline points="10,9 9,9 8,9"></polyline>
+                                </svg>
+                                <div>Click to upload driving license</div>
+                                <div style="font-size: 0.8rem; margin-top: 0.5rem;">JPG, PNG or PDF (Max 5MB)</div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add-ons Selection -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                        Add-ons & Extras
+                    </h2>
+                    <div class="addons-grid">
+                        <div class="addon-item" data-addon="gps" data-price="15">
+                            <input type="checkbox" class="addon-checkbox" id="gps-addon">
+                            <svg class="addon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <div class="addon-name">GPS Navigation</div>
+                            <div class="addon-price">+$15/day</div>
+                        </div>
+                        <div class="addon-item" data-addon="baby-seat" data-price="20">
+                            <input type="checkbox" class="addon-checkbox" id="baby-seat-addon">
+                            <svg class="addon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                            </svg>
+                            <div class="addon-name">Baby Seat</div>
+                            <div class="addon-price">+$20/day</div>
+                        </div>
+                        <div class="addon-item" data-addon="insurance" data-price="35">
+                            <input type="checkbox" class="addon-checkbox" id="insurance-addon">
+                            <svg class="addon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                            <div class="addon-name">Full Insurance</div>
+                            <div class="addon-price">+$35/day</div>
+                        </div>
+                        <div class="addon-item" data-addon="chauffeur" data-price="150">
+                            <input type="checkbox" class="addon-checkbox" id="chauffeur-addon">
+                            <svg class="addon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <circle cx="16" cy="7" r="4"></circle>
+                            </svg>
+                            <div class="addon-name">Chauffeur Service</div>
+                            <div class="addon-price">+$150/day</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promo Code Section -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 8.5l-4-4L12.5 9l4 4L21 8.5z"></path>
+                            <path d="M12.5 9L8 4.5 3.5 9l4.5 4.5L12.5 9z"></path>
+                        </svg>
+                        Promo Code
+                    </h2>
+                    <div class="promo-section">
+                        <div class="promo-input-group">
+                            <input type="text" class="form-input promo-input" id="promo-code" placeholder="Enter promo code">
+                            <button type="button" class="apply-promo-btn" id="apply-promo">Apply</button>
+                        </div>
+                        <div class="promo-success" id="promo-success">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 0.5rem;">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Promo code applied! You saved $50
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Options -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                            <line x1="1" y1="10" x2="23" y2="10"></line>
+                        </svg>
+                        Payment Method
+                    </h2>
+                    <div class="payment-options">
+                        <div class="payment-option" data-payment="upi">
+                            <svg class="payment-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 9V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2m2 4h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2"></path>
+                            </svg>
+                            <div class="payment-name">UPI</div>
+                        </div>
+                        <div class="payment-option" data-payment="card">
+                            <svg class="payment-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                <line x1="1" y1="10" x2="23" y2="10"></line>
+                            </svg>
+                            <div class="payment-name">Card</div>
+                        </div>
+                        <div class="payment-option" data-payment="netbanking">
+                            <svg class="payment-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"></line>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            </svg>
+                            <div class="payment-name">Net Banking</div>
+                        </div>
+                        <div class="payment-option" data-payment="pickup">
+                            <svg class="payment-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 7c0-1.1-.9-2-2-2H7c-1.1 0-2 .9-2 2v2h14V7zM5 11v8c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-8H5z"></path>
+                            </svg>
+                            <div class="payment-name">Pay at Pickup</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Summary Sidebar -->
+            <div class="booking-summary">
+                <h3 class="summary-title">Booking Summary</h3>
+                
+                <div class="summary-item">
+                    <span class="summary-label">Vehicle</span>
+                    <span class="summary-value" id="summary-car">Range Rover Velar</span>
+                </div>
+                
+                <div class="summary-item">
+                    <span class="summary-label">Duration</span>
+                    <span class="summary-value" id="summary-duration">Select dates</span>
+                </div>
+                
+                <div class="summary-item">
+                    <span class="summary-label">Pickup Location</span>
+                    <span class="summary-value" id="summary-pickup">Select location</span>
+                </div>
+                
+                <div class="summary-item">
+                    <span class="summary-label">Base Price</span>
+                    <span class="summary-value" id="summary-base-price">$0</span>
+                </div>
+                
+                <div class="summary-item" id="addons-summary" style="display: none;">
+                    <span class="summary-label">Add-ons</span>
+                    <span class="summary-value" id="summary-addons">$0</span>
+                </div>
+                
+                <div class="summary-item" id="promo-summary" style="display: none;">
+                    <span class="summary-label">Promo Discount</span>
+                    <span class="summary-value" id="summary-promo">-$0</span>
+                </div>
+                
+                <div class="summary-item">
+                    <span class="summary-label">Total</span>
+                    <span class="summary-total" id="summary-total">$0</span>
+                </div>
+                
+                <button class="confirm-booking-btn" id="confirm-booking" disabled>
+                    Confirm Booking
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Processing your booking...</div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="highlight">ELITE</span> RENTALS
+                </div>
+                <p class="footer-tagline">Premium car rental experience</p>
+                
+                <div class="footer-features">
+                    <div class="footer-feature">
+                        <svg class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <p>Multiple Premium Locations</p>
+                    </div>
+                    <div class="footer-feature">
+                        <svg class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12,6 12,12 16,14"></polyline>
+                        </svg>
+                        <p>24/7 Customer Support</p>
+                    </div>
+                    <div class="footer-feature">
+                        <svg class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <circle cx="12" cy="5" r="2"></circle>
+                            <path d="M12 7v4"></path>
+                        </svg>
+                        <p>Fully Insured Fleet</p>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <p>© 2025 Elite Rentals. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Car data with prices
+        const carData = {
+            'Mercedes-Benz S-Class': { price: 250, image: 'https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=800', seats: 5, fuel: 'Petrol', transmission: 'Automatic' },
+            'BMW X7': { price: 320, image: 'https://images.pexels.com/photos/3354648/pexels-photo-3354648.jpeg?auto=compress&cs=tinysrgb&w=800', seats: 7, fuel: 'Petrol', transmission: 'Automatic' },
+            'Audi A8': { price: 280, image: 'https://images.pexels.com/photos/1719649/pexels-photo-1719649.jpeg?auto=compress&cs=tinysrgb&w=800', seats: 5, fuel: 'Petrol', transmission: 'Automatic' },
+            'Porsche Macan': { price: 290, image: 'https://images.pexels.com/photos/6322546/pexels-photo-6322546.jpeg', seats: 5, fuel: 'Petrol', transmission: 'Automatic' },
+            'Range Rover Velar': { price: 310, image: 'https://images.pexels.com/photos/2920064/pexels-photo-2920064.jpeg?auto=compress&cs=tinysrgb&w=800', seats: 5, fuel: 'Petrol', transmission: 'Automatic' },
+            'Jaguar F-PACE': { price: 270, image: 'https://images.pexels.com/photos/3311574/pexels-photo-3311574.jpeg?auto=compress&cs=tinysrgb&w=800', seats: 5, fuel: 'Petrol', transmission: 'Automatic' }
+        };
+
+        let selectedCar = 'Range Rover Velar';
+        let basePricePerDay = carData[selectedCar].price;
+        let promoDiscount = 0;
+        let selectedAddons = [];
+        let selectedPayment = '';
+
+        // Get URL parameters to set selected car
+        const urlParams = new URLSearchParams(window.location.search);
+        const carFromUrl = urlParams.get('car');
+        if (carFromUrl && carData[carFromUrl]) {
+            selectedCar = carFromUrl;
+            basePricePerDay = carData[selectedCar].price;
+            updateCarDisplay();
+        }
+
+        function updateCarDisplay() {
+            const car = carData[selectedCar];
+            document.getElementById('selected-car-name').textContent = selectedCar;
+            document.getElementById('car-seats').textContent = `${car.seats} Seats`;
+            document.getElementById('car-fuel').textContent = car.fuel;
+            document.getElementById('car-transmission').textContent = car.transmission;
+            document.querySelector('.car-image').src = car.image;
+            document.getElementById('summary-car').textContent = selectedCar;
+        }
+
+        // Date calculations
+        function calculateDuration() {
+            const pickupDate = document.getElementById('pickup-date').value;
+            const returnDate = document.getElementById('return-date').value;
+            
+            if (pickupDate && returnDate) {
+                const pickup = new Date(pickupDate);
+                const returnTime = new Date(returnDate);
+                
+                if (returnTime > pickup) {
+                    const diffTime = Math.abs(returnTime - pickup);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    const diffHours = Math.ceil(diffTime / (1000 * 60 * 60));
+                    
+                    document.getElementById('duration-display').textContent = 
+                        diffDays > 1 ? `${diffDays} days` : `${diffHours} hours`;
+                    document.getElementById('summary-duration').textContent = 
+                        diffDays > 1 ? `${diffDays} days` : `${diffHours} hours`;
+                    
+                    updatePricing();
+                    return diffDays;
+                }
+            }
+            
+            document.getElementById('duration-display').textContent = 'Select dates to see duration';
+            document.getElementById('summary-duration').textContent = 'Select dates';
+            return 0;
+        }
+
+        // Pricing calculations
+        function updatePricing() {
+            const pickupDate = document.getElementById('pickup-date').value;
+            const returnDate = document.getElementById('return-date').value;
+            
+            let days = 0;
+            if (pickupDate && returnDate) {
+                const pickup = new Date(pickupDate);
+                const returnTime = new Date(returnDate);
+                
+                if (returnTime > pickup) {
+                    const diffTime = Math.abs(returnTime - pickup);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    days = Math.max(diffDays, 1); // Minimum 1 day
+                }
+            }
+            
+            // Always show base price, even if no dates selected
+            const basePrice = basePricePerDay * Math.max(days, 1);
+            const addonsPrice = selectedAddons.reduce((sum, addon) => sum + (addon.price * Math.max(days, 1)), 0);
+            const totalBeforeDiscount = basePrice + addonsPrice;
+            const total = totalBeforeDiscount - promoDiscount;
+            
+            console.log('Pricing calculation:', {
+                selectedCar,
+                basePricePerDay,
+                days: Math.max(days, 1),
+                basePrice,
+                addonsPrice,
+                promoDiscount,
+                total
+            });
+            
+            // Update displays
+            document.getElementById('estimated-cost').textContent = `Estimated: $${total}`;
+            document.getElementById('summary-base-price').textContent = `$${basePrice}`;
+            document.getElementById('summary-total').textContent = `$${total}`;
+            
+            // Update addons summary
+            if (addonsPrice > 0) {
+                const addonsSummary = document.getElementById('addons-summary');
+                const summaryAddons = document.getElementById('summary-addons');
+                if (addonsSummary) addonsSummary.style.display = 'flex';
+                if (summaryAddons) summaryAddons.textContent = `$${addonsPrice}`;
+            } else {
+                const addonsSummary = document.getElementById('addons-summary');
+                if (addonsSummary) addonsSummary.style.display = 'none';
+            }
+            
+            // Update promo summary
+            if (promoDiscount > 0) {
+                const promoSummary = document.getElementById('promo-summary');
+                const summaryPromo = document.getElementById('summary-promo');
+                if (promoSummary) promoSummary.style.display = 'flex';
+                if (summaryPromo) summaryPromo.textContent = `-$${promoDiscount}`;
+            } else {
+                const promoSummary = document.getElementById('promo-summary');
+                if (promoSummary) promoSummary.style.display = 'none';
+            }
+            
+            checkFormValidation();
+        }
+
+        // Add-ons handling
+        document.querySelectorAll('.addon-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const checkbox = this.querySelector('.addon-checkbox');
+                const addonName = this.querySelector('.addon-name').textContent;
+                const addonPrice = parseFloat(this.dataset.price);
+                
+                checkbox.checked = !checkbox.checked;
+                this.classList.toggle('selected', checkbox.checked);
+                
+                if (checkbox.checked) {
+                    selectedAddons.push({ name: addonName, price: addonPrice });
+                } else {
+                    selectedAddons = selectedAddons.filter(addon => addon.name !== addonName);
+                }
+                
+                updatePricing();
+            });
+        });
+
+        // Payment method selection
+        document.querySelectorAll('.payment-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedPayment = this.dataset.payment;
+                checkFormValidation();
+            });
+        });
+
+        // Promo code handling
+        document.getElementById('apply-promo').addEventListener('click', function() {
+            const promoCode = document.getElementById('promo-code').value.toUpperCase();
+            const validPromoCodes = {
+                'ELITE50': 50,
+                'LUXURY25': 25,
+                'WEEKEND': 30
+            };
+            
+            if (validPromoCodes[promoCode]) {
+                promoDiscount = validPromoCodes[promoCode];
+                document.getElementById('promo-success').style.display = 'block';
+                document.getElementById('promo-success').innerHTML = `
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 0.5rem;">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Promo code applied! You saved $${promoDiscount}
+                `;
+                updatePricing();
+            } else {
+                document.getElementById('promo-success').style.display = 'block';
+                document.getElementById('promo-success').style.color = '#f44336';
+                document.getElementById('promo-success').innerHTML = `
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 0.5rem;">
+                        <path d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/>
+                    </svg>
+                    Invalid promo code
+                `;
+                setTimeout(() => {
+                    document.getElementById('promo-success').style.display = 'none';
+                }, 3000);
+            }
+        });
+
+        // Location updates
+        document.getElementById('pickup-location').addEventListener('change', function() {
+            const location = this.options[this.selectedIndex].text;
+            document.getElementById('summary-pickup').textContent = location !== 'Select pickup location' ? location : 'Select location';
+            checkFormValidation();
+        });
+
+        // File upload handling
+        document.getElementById('license-upload').addEventListener('change', function() {
+            const fileUpload = this.closest('.file-upload');
+            if (this.files.length > 0) {
+                fileUpload.classList.add('has-file');
+                fileUpload.querySelector('.file-upload-label div').textContent = `Selected: ${this.files[0].name}`;
+            } else {
+                fileUpload.classList.remove('has-file');
+                fileUpload.querySelector('.file-upload-label div').textContent = 'Click to upload driving license';
+            }
+            checkFormValidation();
+        });
+
+        // Form validation
+        function checkFormValidation() {
+            const requiredFields = [
+                'full-name',
+                'email',
+                'mobile'
+            ];
+            
+            const allFilled = requiredFields.every(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!field) return false;
+                return field.value.trim() !== '';
+            });
+            
+            // Check basic required fields only
+            const pickupDate = document.getElementById('pickup-date').value;
+            const returnDate = document.getElementById('return-date').value;
+            const pickupLocation = document.getElementById('pickup-location').value;
+            const returnLocation = document.getElementById('return-location').value;
+            
+            const hasBasicInfo = allFilled && pickupDate && returnDate && pickupLocation && returnLocation;
+            const hasPayment = selectedPayment !== '';
+            
+            const confirmButton = document.getElementById('confirm-booking');
+            if (confirmButton) {
+                // Enable button if basic info is filled and payment method is selected
+                const shouldEnable = hasBasicInfo && hasPayment;
+                confirmButton.disabled = !shouldEnable;
+                
+                // Visual feedback
+                if (shouldEnable) {
+                    confirmButton.style.opacity = '1';
+                    confirmButton.style.cursor = 'pointer';
+                    confirmButton.style.background = 'linear-gradient(135deg, #FFD700, #FFC107)';
+                } else {
+                    confirmButton.style.opacity = '0.6';
+                    confirmButton.style.cursor = 'not-allowed';
+                    confirmButton.style.background = '#666';
+                }
+                
+                // Add debugging
+                console.log('Form validation check:', {
+                    hasBasicInfo,
+                    hasPayment,
+                    shouldEnable,
+                    allFilled,
+                    pickupDate: !!pickupDate,
+                    returnDate: !!returnDate,
+                    pickupLocation: !!pickupLocation,
+                    returnLocation: !!returnLocation,
+                    selectedPayment
+                });
+            }
+        }
+
+        // Generate OTP
+        function generateOTP() {
+            return Math.floor(100000 + Math.random() * 900000).toString();
+        }
+
+        // Generate transaction ID
+        function generateTransactionId() {
+            const timestamp = Date.now();
+            const random = Math.floor(Math.random() * 10000);
+            return `TXN${timestamp}${random}`;
+        }
+
+        // Process payment based on selected method
+        function processPayment(bookingData) {
+            console.log('Processing payment for method:', bookingData.paymentMethod);
+            
+            try {
+                const paymentData = {
+                    transactionId: generateTransactionId(),
+                    amount: bookingData.totalAmount,
+                    paymentMethod: bookingData.paymentMethod,
+                    timestamp: new Date().toISOString(),
+                    status: 'success'
+                };
+
+                if (bookingData.paymentMethod === 'pickup') {
+                    // For pay at pickup, skip payment processing
+                    paymentData.status = 'pending';
+                    paymentData.note = 'Payment to be collected at pickup';
+                    console.log('Pay at pickup selected, completing booking directly');
+                    completeBooking(bookingData, paymentData);
+                } else if (['upi', 'card', 'netbanking'].includes(bookingData.paymentMethod)) {
+                    // Simulate online payment processing
+                    console.log('Online payment method selected, showing payment modal');
+                    showPaymentModal(bookingData, paymentData);
+                } else {
+                    console.error('Invalid payment method:', bookingData.paymentMethod);
+                    console.log('Please select a valid payment method.');
+                }
+            } catch (error) {
+                console.error('Error processing payment:', error);
+                console.log('There was an error processing your payment. Please try again.');
+            }
+        }
+
+        // Show payment processing modal
+        function showPaymentModal(bookingData, paymentData) {
+            const paymentMethods = {
+                'upi': 'UPI Payment',
+                'card': 'Card Payment',
+                'netbanking': 'Net Banking'
+            };
+
+            const modalHtml = `
+                <div id="payment-modal" style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.95);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 2000;
+                ">
+                    <div style="
+                        background: #0a0a0a;
+                        border-radius: 20px;
+                        padding: 3rem;
+                        border: 1px solid #FFD700;
+                        max-width: 500px;
+                        width: 90%;
+                        text-align: center;
+                    ">
+                        <div style="
+                            width: 80px;
+                            height: 80px;
+                            margin: 0 auto 2rem;
+                            background: linear-gradient(135deg, #FFD700, #FFC107);
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        ">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2">
+                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                <line x1="1" y1="10" x2="23" y2="10"></line>
+                            </svg>
+                        </div>
+                        <h3 style="color: #FFD700; font-size: 1.8rem; margin-bottom: 1rem;">
+                            ${paymentMethods[bookingData.paymentMethod]}
+                        </h3>
+                        <p style="color: #cccccc; margin-bottom: 2rem;">
+                            Processing payment of <strong style="color: #FFD700;">${bookingData.totalAmount}</strong>
+                        </p>
+                        <div style="
+                            background: #1a1a1a;
+                            border-radius: 10px;
+                            padding: 1.5rem;
+                            margin-bottom: 2rem;
+                            border: 1px solid #333;
+                        ">
+                            <div style="color: #888; margin-bottom: 0.5rem;">Transaction ID</div>
+                            <div style="color: #FFD700; font-family: monospace; font-size: 1.1rem;">${paymentData.transactionId}</div>
+                        </div>
+                        <div id="payment-progress" style="
+                            width: 100%;
+                            height: 4px;
+                            background: #333;
+                            border-radius: 2px;
+                            overflow: hidden;
+                            margin-bottom: 2rem;
+                        ">
+                            <div style="
+                                width: 0%;
+                                height: 100%;
+                                background: linear-gradient(90deg, #FFD700, #FFC107);
+                                border-radius: 2px;
+                                animation: progressBar 3s ease-in-out forwards;
+                            "></div>
+                        </div>
+                        <div style="color: #888; font-size: 0.9rem;">
+                            Please do not close this window...
+                        </div>
+                    </div>
+                </div>
+                <style>
+                    @keyframes progressBar {
+                        0% { width: 0%; }
+                        50% { width: 60%; }
+                        100% { width: 100%; }
+                    }
+                </style>
+            `;
+
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+            // Simulate payment processing
+            setTimeout(() => {
+                document.getElementById('payment-modal').remove();
+                showPaymentReceipt(bookingData, paymentData);
+            }, 3500);
+        }
+
+        // Show payment receipt
+        function showPaymentReceipt(bookingData, paymentData) {
+            const receiptHtml = `
+                <div id="payment-receipt" style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.95);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 2000;
+                ">
+                    <div style="
+                        background: #0a0a0a;
+                        border-radius: 20px;
+                        padding: 3rem;
+                        border: 1px solid #4CAF50;
+                        max-width: 500px;
+                        width: 90%;
+                        text-align: center;
+                        max-height: 90vh;
+                        overflow-y: auto;
+                    ">
+                        <div style="
+                            width: 80px;
+                            height: 80px;
+                            margin: 0 auto 2rem;
+                            background: linear-gradient(135deg, #4CAF50, #45a049);
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            animation: successPulse 0.6s ease-out;
+                        ">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3">
+                                <polyline points="20,6 9,17 4,12"></polyline>
+                            </svg>
+                        </div>
+                        <h3 style="color: #4CAF50; font-size: 1.8rem; margin-bottom: 1rem;">
+                            Payment Successful!
+                        </h3>
+                        <div style="
+                            background: #1a1a1a;
+                            border-radius: 15px;
+                            padding: 2rem;
+                            margin-bottom: 2rem;
+                            border: 1px solid #333;
+                            text-align: left;
+                        ">
+                            <h4 style="color: #FFD700; margin-bottom: 1rem; text-align: center;">Payment Receipt</h4>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; padding-bottom: 0.8rem; border-bottom: 1px solid #333;">
+                                <span style="color: #888;">Transaction ID:</span>
+                                <span style="color: #ffffff; font-family: monospace;">${paymentData.transactionId}</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; padding-bottom: 0.8rem; border-bottom: 1px solid #333;">
+                                <span style="color: #888;">Amount Paid:</span>
+                                <span style="color: #4CAF50; font-weight: bold;">${bookingData.totalAmount}</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; padding-bottom: 0.8rem; border-bottom: 1px solid #333;">
+                                <span style="color: #888;">Payment Method:</span>
+                                <span style="color: #ffffff;">${bookingData.paymentMethod.toUpperCase()}</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; padding-bottom: 0.8rem; border-bottom: 1px solid #333;">
+                                <span style="color: #888;">Date & Time:</span>
+                                <span style="color: #ffffff;">${new Date().toLocaleString()}</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span style="color: #888;">Status:</span>
+                                <span style="color: #4CAF50; font-weight: bold;">SUCCESS</span>
+                            </div>
+                        </div>
+                        <button onclick="continueToBooking()" style="
+                            width: 100%;
+                            background: linear-gradient(135deg, #FFD700, #FFC107);
+                            color: #000000;
+                            border: none;
+                            padding: 1rem 2rem;
+                            border-radius: 10px;
+                            cursor: pointer;
+                            font-weight: 700;
+                            font-size: 1.1rem;
+                            transition: all 0.3s ease;
+                        ">
+                            Continue to Booking Confirmation
+                        </button>
+                    </div>
+                </div>
+                <style>
+                    @keyframes successPulse {
+                        0% { transform: scale(0.8); opacity: 0; }
+                        50% { transform: scale(1.1); }
+                        100% { transform: scale(1); opacity: 1; }
+                    }
+                </style>
+            `;
+
+            document.body.insertAdjacentHTML('beforeend', receiptHtml);
+
+            // Store payment data for later use
+            localStorage.setItem('paymentData', JSON.stringify(paymentData));
+
+            // Make continue function globally available
+            window.continueToBooking = function() {
+                document.getElementById('payment-receipt').remove();
+                completeBooking(bookingData, paymentData);
+            };
+        }
+
+        // Complete booking process
+        function completeBooking(bookingData, paymentData) {
+            console.log('Completing booking process...');
+            
+            try {
+                // Generate OTP
+                const otp = generateOTP();
+                
+                // Add payment and OTP data to booking
+                bookingData.paymentData = paymentData;
+                bookingData.otp = otp;
+                bookingData.bookingTime = new Date().toISOString();
+                
+                console.log('Final booking data:', bookingData);
+                
+                // Store complete booking data
+                localStorage.setItem('bookingData', JSON.stringify(bookingData));
+                console.log('Booking data saved to localStorage');
+                
+                // Small delay before redirect
+                setTimeout(() => {
+                    console.log('Redirecting to confirmation page...');
+                    window.location.href = 'confirmation.html';
+                }, 500);
+                
+            } catch (error) {
+                console.error('Error completing booking:', error);
+                console.log('There was an error completing your booking. Please try again.');
+            }
+        }
+
+        // Confirm booking
+        document.getElementById('confirm-booking').addEventListener('click', function() {
+            console.log('Confirm booking button clicked');
+            // Validate form one more time
+            if (this.disabled) {
+                console.log('Please fill in all required fields and select a payment method.');
+                return;
+            }
+            // Show loading overlay
+            const loadingOverlay = document.getElementById('loading-overlay');
+            if (loadingOverlay) {
+                loadingOverlay.style.display = 'flex';
+            }
+            // Prepare booking data for backend
+            const userEmail = localStorage.getItem('userEmail');
+            const car = selectedCar;
+            // Send booking request to backend
+            fetch('http://localhost:5000/api/book', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: userEmail, car })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.bookingId) {
+                    localStorage.setItem('bookingId', data.bookingId);
+                    window.location.href = 'confirmation.html';
+                } else {
+                    // Optionally handle booking failure UI here
+                }
+            })
+            .catch(err => {
+                // Removed alert for booking failed
+            })
+            .finally(() => {
+                if (loadingOverlay) loadingOverlay.style.display = 'none';
+            });
+        });
+
+        // Event listeners for date changes
+        document.getElementById('pickup-date').addEventListener('change', function() {
+            calculateDuration();
+            checkFormValidation();
+        });
+
+        document.getElementById('return-date').addEventListener('change', function() {
+            calculateDuration();
+            checkFormValidation();
+        });
+
+        // Event listeners for form validation
+        document.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('input', checkFormValidation);
+            input.addEventListener('change', checkFormValidation);
+        });
+
+        // Set minimum date to today
+        const today = new Date();
+        const minDate = today.toISOString().slice(0, 16);
+        const pickupDateField = document.getElementById('pickup-date');
+        const returnDateField = document.getElementById('return-date');
+        
+        if (pickupDateField && returnDateField) {
+            pickupDateField.min = minDate;
+            returnDateField.min = minDate;
+            
+            // Set default dates for demo (today and tomorrow)
+            pickupDateField.value = minDate;
+            const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+            returnDateField.value = tomorrow.toISOString().slice(0, 16);
+        }
+
+        // Initialize display
+        updateCarDisplay();
+        updatePricing();
+        
+        // Auto-fill form for demo purposes
+        setTimeout(() => {
+            document.getElementById('full-name').value = 'John Doe';
+            document.getElementById('email').value = 'john.doe@example.com';
+            document.getElementById('mobile').value = '+1234567890';
+            
+            // Set locations
+            document.getElementById('pickup-location').value = 'airport';
+            document.getElementById('return-location').value = 'downtown';
+            
+            console.log('Form pre-filled for demo');
+        }, 100);
+        
+        // Auto-select UPI payment method for demo
+        setTimeout(() => {
+            const upiOption = document.querySelector('[data-payment="upi"]');
+            if (upiOption) {
+                upiOption.click();
+                console.log('Auto-selected UPI payment method');
+            }
+        }, 500);
+        
+        // Initial form validation check
+        setTimeout(() => {
+            checkFormValidation();
+            console.log('Initial setup complete');
+            console.log('Selected car:', selectedCar);
+            console.log('Base price per day:', basePricePerDay);
+            console.log('Selected payment:', selectedPayment);
+        }, 1000);
+    </script>
+</body>
+</html>

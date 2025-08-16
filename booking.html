@@ -1376,11 +1376,11 @@
                     showPaymentModal(bookingData, paymentData);
                 } else {
                     console.error('Invalid payment method:', bookingData.paymentMethod);
-                    alert('Please select a valid payment method.');
+                    console.log('Please select a valid payment method.');
                 }
             } catch (error) {
                 console.error('Error processing payment:', error);
-                alert('There was an error processing your payment. Please try again.');
+                console.log('There was an error processing your payment. Please try again.');
             }
         }
 
@@ -1622,7 +1622,7 @@
                 
             } catch (error) {
                 console.error('Error completing booking:', error);
-                alert('There was an error completing your booking. Please try again.');
+                console.log('There was an error completing your booking. Please try again.');
             }
         }
 
@@ -1632,7 +1632,7 @@
             
             // Validate form one more time
             if (this.disabled) {
-                alert('Please fill in all required fields and select a payment method.');
+                console.log('Please fill in all required fields and select a payment method.');
                 return;
             }
             
